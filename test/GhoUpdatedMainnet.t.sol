@@ -1,6 +1,8 @@
 import {Test, console2} from "forge-std/Test.sol";
 import { GhoToken } from "gho-core/src/contracts/gho/GhoToken.sol";
 
+pragma solidity ^0.8.0;
+
 contract ForkTest is Test {
     // the identifiers of the forks
     uint256 mainnetFork;
@@ -18,10 +20,6 @@ contract ForkTest is Test {
         mainnetFork = vm.createFork(MAINNET_RPC_URL);
         vm.selectFork(mainnetFork);
         ghoToken = GhoToken(address(0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f));
-    }
-
-    function test_start() public {
-
     }
 
 }
