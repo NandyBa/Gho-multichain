@@ -15,3 +15,6 @@ Notice: ⚠️ Do not put your personal wallet private key. It's must be a walle
 **Seed wallet**
 
 Seed your wallet with Sepolia and Mumbai funds
+
+### Get RPC for Sepolia and Mumbai testnets
+You can use [Anker](https://www.ankr.com/rpc/) got get these RPC
