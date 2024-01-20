@@ -21,3 +21,8 @@ You can use [Anker](https://www.ankr.com/rpc/) got get these RPC
 
 ### Recommended: Get Etherscan and PolygonScan API Tokens
 Visit [Etherscan](https://etherscan.io/login) and [PolygonScan](https://polygonscan.com/login) to get your API Tokens. These API Token are requested to verify the contract on block explorers.
+
+## Scripts
+
+## Deploy GHO and Facilitators
+## Deploy CCIP Contracts
