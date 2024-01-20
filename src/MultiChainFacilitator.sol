@@ -17,7 +17,6 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
         LINK
     }
 
-    address immutable i_router;
     address immutable i_link;
 
     event MessageSent(bytes32 messageId);
@@ -29,7 +28,6 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
         address _Gho_Address
     ) CCIPReceiver(router) {
         Gho_Address = _Gho_Address;
-        i_router = router;
         i_link = link;
     }
 
@@ -61,8 +59,9 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
             extraArgs: "",
             feeToken: payFeesIn == PayFeesIn.LINK ? i_link : address(0)
         });
+        address router = getRouter();
 
-        uint256 fee = IRouterClient(i_router).getFee(
+        uint256 fee = IRouterClient(router).getFee(
             destinationChainSelector,
             message
         );
@@ -70,13 +69,13 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
         bytes32 messageId;
 
         if (payFeesIn == PayFeesIn.LINK) {
-            LinkTokenInterface(i_link).approve(i_router, fee);
-            messageId = IRouterClient(i_router).ccipSend(
+            LinkTokenInterface(i_link).approve(router, fee);
+            messageId = IRouterClient(router).ccipSend(
                 destinationChainSelector,
                 message
             );
         } else {
-            messageId = IRouterClient(i_router).ccipSend{value: fee}(
+            messageId = IRouterClient(router).ccipSend{value: fee}(
                 destinationChainSelector,
                 message
             );
