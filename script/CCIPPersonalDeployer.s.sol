@@ -2,11 +2,9 @@
 pragma solidity 0.8.19;
 
 import "forge-std/Script.sol";
-import "./Helper.sol";
 import "forge-std/console.sol";
-import { MyNFT } from "../src/cross-chain-nft-minter/MyNFT.sol";
-import { DestinationMinter } from "../src/cross-chain-nft-minter/DestinationMinter.sol";
-import { SourceMinter } from "../src/cross-chain-nft-minter/SourceMinter.sol";
+import { DestinationMinter } from "../src/cross-chain-minter/DestinationMinter.sol";
+import { SourceMinter } from "../src/cross-chain-minter/SourceMinter.sol";
 import { GhoToken } from "gho-core/src/contracts/gho/GhoToken.sol";
 
 contract DeployCCIPDestitationChain is Script {
