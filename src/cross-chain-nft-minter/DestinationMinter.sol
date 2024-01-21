@@ -22,16 +22,11 @@ contract DestinationMinter is CCIPReceiver {
     function _ccipReceive(
         Client.Any2EVMMessage memory message
     ) internal override {
-        (bool success, ) = address(ghoToken).call(message.data);
-        require(success);
+        bytes memory data = message.data;
+        address receiver;
+        uint256 amount;
+        (receiver, amount) = abi.decode(data, (address, uint256));
+        GhoToken(ghoToken).mint(receiver, amount);
         emit MintCallSuccessfull();
-    }
-
-    function executeMint(address receiver, uint256 amount) external {
-        bytes memory data = abi.encode(receiver, amount);
-        address receiverFromData;
-        uint256 amountFromData;
-        (receiverFromData, amountFromData) = abi.decode(data, (address, uint256));
-        GhoToken(ghoToken).mint(receiverFromData, amountFromData);
     }
 }
