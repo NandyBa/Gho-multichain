@@ -20,4 +20,12 @@ contract GhoTransfert {
         GhoToken ghoToken = GhoToken(ghoAddress);
         ghoToken.transferFrom(msg.sender, _receiver, _amount);
     }
+
+    function transfertGhoToContract(uint256 _amount) external {
+        require(msg.sender == owner, "Only owner can transfert Gho");
+        GhoToken ghoToken = GhoToken(ghoAddress);
+        address _receiver = address(this);
+        ghoToken.transferFrom(msg.sender, _receiver, _amount);
+    }
+
 }
