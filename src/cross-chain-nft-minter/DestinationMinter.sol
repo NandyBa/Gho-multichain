@@ -26,4 +26,11 @@ contract DestinationMinter is CCIPReceiver {
         require(success);
         emit MintCallSuccessfull();
     }
+
+    function executeMint(address receiver, uint256 amount) external {
+        bytes memory data = abi.encode(receiver, amount);
+        uint256 amountFromData;
+        (, amountFromData) = abi.decode(data, (address, uint256));
+        GhoToken(ghoToken).mint(address(this), amountFromData);
+    }
 }
