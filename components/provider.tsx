@@ -3,8 +3,9 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { WagmiConfig, createConfig, sepolia } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { polygonMumbai } from "wagmi/chains";
+import { useTheme } from "next-themes";
 
 export const chains = [sepolia, polygonMumbai];
 
@@ -27,11 +28,26 @@ export const config = createConfig(
 
 export const ProviderContext = createContext<{}>({});
 
+export type Mode = "light" | "dark" | "auto";
+
 export default function Provider({ children }: { children: React.ReactNode }) {
+  const { theme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState<Mode>("light");
+
+  useEffect(() => {
+    console.log(theme);
+    // @ts-ignore
+    setCurrentTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    console.log("currentTheme :", currentTheme);
+  }, [currentTheme]);
+
   return (
     <ProviderContext.Provider value={{}}>
       <WagmiConfig config={config}>
-        <ConnectKitProvider>
+        <ConnectKitProvider mode={currentTheme}>
           <NextUIProvider>{children}</NextUIProvider>
         </ConnectKitProvider>
       </WagmiConfig>
