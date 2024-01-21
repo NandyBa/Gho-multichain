@@ -29,8 +29,9 @@ contract DestinationMinter is CCIPReceiver {
 
     function executeMint(address receiver, uint256 amount) external {
         bytes memory data = abi.encode(receiver, amount);
+        address receiverFromData;
         uint256 amountFromData;
-        (, amountFromData) = abi.decode(data, (address, uint256));
-        GhoToken(ghoToken).mint(address(this), amountFromData);
+        (receiverFromData, amountFromData) = abi.decode(data, (address, uint256));
+        GhoToken(ghoToken).mint(receiverFromData, amountFromData);
     }
 }
