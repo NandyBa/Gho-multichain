@@ -2,7 +2,6 @@
 pragma solidity 0.8.19;
 
 import "forge-std/Script.sol";
-import "./Helper.sol";
 import "forge-std/console.sol";
 import { GhoToken } from "gho-core/src/contracts/gho/GhoToken.sol";
 import { Faucet } from "../src/Faucet/Faucet.sol";

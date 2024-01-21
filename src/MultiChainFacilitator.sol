@@ -33,7 +33,7 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
 
     receive() external payable {}
 
-    function burn(
+    function multiChainTransfert(
         uint64 destinationChainSelector,
         address receiver,
         PayFeesIn payFeesIn,
