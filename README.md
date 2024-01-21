@@ -48,3 +48,14 @@ Without block explorer API key
 ```bash
 forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --broadcast
 ```
+
+#### Source Chain
+With block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPSourceChain --rpc-url  <SEPOLIA_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
+```
+
+Without block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPSourceChain --rpc-url  <SEPOLIA_RPC> --broadcast
+```
