@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
 
@@ -47,6 +48,7 @@ export default function Home() {
         </SelectContent>
       </Select>
       <Input type="number" placeholder="number" />
+      <Button>Bridge</Button>
     </main>
   );
 }
