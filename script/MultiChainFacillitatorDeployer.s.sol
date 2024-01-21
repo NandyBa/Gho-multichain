@@ -28,7 +28,7 @@ contract Deploy is Script {
 
 contract DeployOnMumbai is Script {
     address router = 0x1035CabC275068e0F4b745A29CEDf38E13aF41b1; // Mumbai
-    address gho = 0x338351c23414a02A2549c944405F2B40Abe6DF43; // Mumbai Gho
+    address gho = 0x92D6EcaC04f636b1827795E5f4eaD3d883Bc5937; // Mumbai Gho
     address link = 0x326C977E6efc84E512bB9C30f76E30c160eD06FB; // Mumbai
 
     function run() external {
@@ -39,7 +39,7 @@ contract DeployOnMumbai is Script {
 
 contract DeployOnSepolia is Script {
     address router = 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59; // Sepolia
-    address gho = 0xB4FE9555B0B70cCe2fdFbE50FF6c1EbC62754EF8; // Sepolia Gho
+    address gho = 0x579b36161bC93fe63F6b25E3bF239E54936641d1; // Sepolia Gho
     address link = 0x779877A7B0D9E8603169DdbD7836e478b4624789; // Sepolia
 
     function run() external {

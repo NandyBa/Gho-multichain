@@ -8,6 +8,7 @@ import {Withdraw} from "./utils/Withdraw.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications/CCIPReceiver.sol";
 import {IGhoToken} from "./interface/IGhoToken.sol";
+import { GhoToken } from "gho-core/src/contracts/gho/GhoToken.sol";
 
 contract MultiChainFacilitator is Withdraw, CCIPReceiver {
     address Gho_Address;
@@ -50,11 +51,7 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
         require((balanceBefore - balanceAfter) == amount, "can't burn");
         Client.EVM2AnyMessage memory message = Client.EVM2AnyMessage({
             receiver: abi.encode(receiver),
-            data: abi.encodeWithSignature(
-                "mint(address, amount)",
-                msg.sender,
-                amount
-            ),
+            data: abi.encode(msg.sender, amount),
             tokenAmounts: new Client.EVMTokenAmount[](0),
             extraArgs: "",
             feeToken: payFeesIn == PayFeesIn.LINK ? i_link : address(0)
@@ -87,8 +84,11 @@ contract MultiChainFacilitator is Withdraw, CCIPReceiver {
     function _ccipReceive(
         Client.Any2EVMMessage memory message
     ) internal override {
-        (bool success, ) = address(Gho_Address).call(message.data);
-        require(success);
+        bytes memory data = message.data;
+        address receiver;
+        uint256 amount;
+        (receiver, amount) = abi.decode(data, (address, uint256));
+        GhoToken(Gho_Address).mint(receiver, amount);
         emit MintCallSuccessfull();
     }
 }
