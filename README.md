@@ -25,6 +25,21 @@ Visit [Etherscan](https://etherscan.io/login) and [PolygonScan](https://polygons
 ## Scripts
 
 ### Deploy GHO and Facilitators
+You must run these both scripts
+
+#### Mumbai
+With block explorer API key
+```bash
+forge script script/DeployGho.s.sol:DeployGho --rpc-url <MUMBAI_RPC> --etherscan-api-key <POLYGONSCAN_API_KEY> --verify --broadcast
+```
+
+Without block explorer API key
+```bash
+forge script script/DeployGho.s.sol:DeployGho --rpc-url <MUMBAI_RPC> --broadcast
+```
+
+#### Sepolia
+
 With block explorer API key
 ```bash
 forge script script/DeployGho.s.sol:DeployGho --rpc-url <SEPOLIA_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
@@ -41,7 +56,7 @@ You must run these both scripts
 #### Destination Chain
 With block explorer API key
 ```bash
-forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --etherscan-api-key <POLYGONSCAN_API_KEY> --verify --broadcast
 ```
 
 Without block explorer API key

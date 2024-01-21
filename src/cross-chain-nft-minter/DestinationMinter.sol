@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 import {CCIPReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/applications/CCIPReceiver.sol";
 import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
-import {MyNFT} from "./MyNFT.sol";
+import { GhoToken } from "gho-core/src/contracts/gho/GhoToken.sol";
 
 /**
  * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
@@ -11,19 +11,22 @@ import {MyNFT} from "./MyNFT.sol";
  * DO NOT USE THIS CODE IN PRODUCTION.
  */
 contract DestinationMinter is CCIPReceiver {
-    MyNFT nft;
+    GhoToken ghoToken;
 
     event MintCallSuccessfull();
 
-    constructor(address router, address nftAddress) CCIPReceiver(router) {
-        nft = MyNFT(nftAddress);
+    constructor(address router, address ghoTokenAddress) CCIPReceiver(router) {
+        ghoToken = GhoToken(ghoTokenAddress);
     }
 
     function _ccipReceive(
         Client.Any2EVMMessage memory message
     ) internal override {
-        (bool success, ) = address(nft).call(message.data);
-        require(success);
+        bytes memory data = message.data;
+        address receiver;
+        uint256 amount;
+        (receiver, amount) = abi.decode(data, (address, uint256));
+        GhoToken(ghoToken).mint(receiver, amount);
         emit MintCallSuccessfull();
     }
 }
