@@ -4,24 +4,61 @@ This project levrage GHO ecosystem.
 
 ## Before execution
 
-**Define mainnet RPC**
+### Define env variables
 
+Set up `PRIVATE_KEY` env variable.
+Notice: ⚠️ Do not put your personal wallet private key. It's must be a wallet only for testing
 ```bash
-export MAINNET_RPC_URL=<YOUR ETHEREUM MAINNET RPC>
+ export PRIVATE_KEY=<YOU_TEST_WALLET_PRIVATE_KEY>
 ```
 
-## Execution
+### Seed wallet
 
-**Step 1: Launch fork**
+Seed your wallet with Sepolia and Mumbai funds
 
+### Get RPC for Sepolia and Mumbai testnets
+You can use [Anker](https://www.ankr.com/rpc/) got get these RPC
+
+### Recommended: Get Etherscan and PolygonScan API keys
+Visit [Etherscan](https://etherscan.io/login) and [PolygonScan](https://polygonscan.com/login) to get your API key. These API Token are requested to verify the contract on block explorers.
+
+## Scripts
+
+### Deploy GHO and Facilitators
+With block explorer API key
 ```bash
-bash src/fork-mainnet.sh
+forge script script/DeployGho.s.sol:DeployGho --rpc-url <SEPOLIA_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
 ```
 
-**Step 2: Execute GHO contract update**
-
+Without block explorer API key
 ```bash
-bash src/UpdateGhoMainnet.sh
+forge script script/DeployGho.s.sol:DeployGho --rpc-url <SEPOLIA_RPC> --broadcast
 ```
 
-GhoToken = https://github.com/aave/gho-core/blob/main/src/contracts/gho/GhoToken.sol
+### Deploy CCIP Contracts
+You must run these both scripts
+
+#### Destination Chain
+With block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
+```
+
+Without block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --broadcast
+```
+
+#### Source Chain
+With block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPSourceChain --rpc-url  <SEPOLIA_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
+```
+
+Without block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPSourceChain --rpc-url  <SEPOLIA_RPC> --broadcast
+```
+
+- ⚠️ Then send some Sepolia eth to CCIP Contract
+- You are now able to use CCIP contract to mint NFT from Sepolia to Mumbai
