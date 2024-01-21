@@ -124,6 +124,10 @@ export default function Home() {
     console.log("Amount:", amount);
   };
 
+  const handleMintButtonClick = () => {
+    console.log("mint gho : ");
+  };
+
   return (
     <main className="flex flex-col items-center justify-center space-y-4">
       {/* {isDisconnected && (
@@ -138,6 +142,11 @@ export default function Home() {
           <Badge variant="secondary">
             Your balance in Gho on Mumbai: {ghoBalance}
           </Badge>
+        )}
+        {chain && chain.name === "Polygon Mumbai" && (
+          <Button variant="outline" onClick={handleMintButtonClick}>
+            Mint 10 Gho
+          </Button>
         )}
         <Badge variant="secondary">Origin network</Badge>
         <Select onValueChange={handleOriginNetworkChange} value={originNetwork}>
