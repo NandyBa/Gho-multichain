@@ -1,10 +1,14 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/react";
-import { WagmiConfig, createConfig } from "wagmi";
+import { WagmiConfig, createConfig, sepolia } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { createContext } from "react";
+import { polygonMumbai } from "wagmi/chains";
 
-const config = createConfig(
+export const chains = [sepolia, polygonMumbai];
+
+export const config = createConfig(
   getDefaultConfig({
     // Required API Keys
     alchemyId: "a78ea67f650a46e8bd97f3262d1cef43", // or infuraId
@@ -17,9 +21,9 @@ const config = createConfig(
     appDescription: "Your App Description",
     appUrl: "https://family.co", // your app's url
     appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
+    chains,
   })
 );
-import { createContext } from "react";
 
 export const ProviderContext = createContext<{}>({});
 
