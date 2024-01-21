@@ -1,11 +1,8 @@
 "use client";
+
 import { NextUIProvider } from "@nextui-org/react";
 import { WagmiConfig, createConfig } from "wagmi";
-import {
-  ConnectKitProvider,
-  ConnectKitButton,
-  getDefaultConfig,
-} from "connectkit";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
 const config = createConfig(
   getDefaultConfig({
@@ -22,7 +19,7 @@ const config = createConfig(
     appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
   })
 );
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 
 export const ProviderContext = createContext<{}>({});
 
@@ -32,7 +29,6 @@ export default function Provider({ children }: { children: React.ReactNode }) {
       <WagmiConfig config={config}>
         <ConnectKitProvider>
           <NextUIProvider>{children}</NextUIProvider>
-          <ConnectKitButton />
         </ConnectKitProvider>
       </WagmiConfig>
     </ProviderContext.Provider>
