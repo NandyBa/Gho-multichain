@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { HeightIcon } from "@radix-ui/react-icons";
 import {
@@ -12,15 +12,41 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useSwitchNetwork } from "wagmi";
+import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
+import { fetchBalance } from "@/utils/contracts/fetchContracts";
 
 export default function Home() {
   const { chains, error, switchNetwork } = useSwitchNetwork();
+  const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   const [originNetwork, setOriginNetwork] = useState("");
   const [destinationNetwork, setDestinationNetwork] = useState("");
   const [amount, setAmount] = useState(0);
   const [isRotated, setIsRotated] = useState(false);
+
+  const [ghoBalance, setGhoBalance] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // @ts-ignore
+        const balance = await fetchBalance(address);
+        // @ts-ignore
+        const result: BigInt = balance[0].result;
+        // @ts-ignore
+        const balanceInEther: number = Number(result / 10n ** 18n);
+        setGhoBalance(balanceInEther);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
+
+    if (chain && chain.name == "Polygon Mumbai") {
+      console.log(chain.name);
+      fetchData();
+    }
+  }, [isConnected, chain, !address]);
 
   const toggleRotation = async () => {
     setIsRotated(!isRotated);
@@ -108,6 +134,11 @@ export default function Home() {
       {!isConnecting && !isDisconnected && ( */}
       <>
         <div>{error && error.message}</div>
+        {chain && chain.name === "Polygon Mumbai" && (
+          <Badge variant="secondary">
+            Your balance in Gho on Mumbai: {ghoBalance}
+          </Badge>
+        )}
         <Badge variant="secondary">Origin network</Badge>
         <Select onValueChange={handleOriginNetworkChange} value={originNetwork}>
           <SelectTrigger>

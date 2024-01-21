@@ -12,7 +12,7 @@ export const chains = [sepolia, polygonMumbai];
 export const config = createConfig(
   getDefaultConfig({
     // Required API Keys
-    alchemyId: "a78ea67f650a46e8bd97f3262d1cef43", // or infuraId
+    alchemyId: "H50hcWGh3-idqI-_fQAj3A57AbEdwMdf",
     walletConnectProjectId: "79b445e0921705d5a1e2477813653d50",
 
     // Required
