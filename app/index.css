@@ -48,8 +48,3 @@
     --ring: 263.4 70% 50.4%;
   }
 }
-
-@font-face {
-  font-family: SFPro;
-  src: url(../public/font/sfpro.OTF) format("woff");
-}

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,8 @@ export function Header() {
   const { setTheme } = useTheme();
 
   return (
-    <div className="p-4 flex justify-end">
+    <div className="p-4 flex justify-between items-center">
+      <Image src="/Aave_logo.png" alt="Aave Logo" width={150} height={150} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
