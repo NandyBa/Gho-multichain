@@ -30,9 +30,21 @@ With block explorer API key
 forge script script/DeployGho.s.sol:DeployGho --rpc-url <SEPOLIA_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
 ```
 
-Without
+Without block explorer API key
 ```bash
 forge script script/DeployGho.s.sol:DeployGho --rpc-url <SEPOLIA_RPC> --broadcast
 ```
 
 ### Deploy CCIP Contracts
+You must run these both scripts
+
+#### Destination Chain
+With block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --etherscan-api-key <ETHERSCAN_API_KEY> --verify --broadcast
+```
+
+Without block explorer API key
+```bash
+forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPDestitationChain --rpc-url <MUMBAI_RPC> --broadcast
+```
