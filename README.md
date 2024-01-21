@@ -59,3 +59,6 @@ Without block explorer API key
 ```bash
 forge script script/CCIPPersonalDeployer.s.sol:DeployCCIPSourceChain --rpc-url  <SEPOLIA_RPC> --broadcast
 ```
+
+- ⚠️ Then send some Sepolia eth to CCIP Contract
+- You are now able to use CCIP contract to mint NFT from Sepolia to Mumbai
