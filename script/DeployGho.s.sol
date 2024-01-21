@@ -5,6 +5,7 @@ import "forge-std/Script.sol";
 import "forge-std/console.sol";
 import { GhoToken } from "gho-core/src/contracts/gho/GhoToken.sol";
 import { Faucet } from "../src/Faucet/Faucet.sol";
+import { GhoTransfert } from "../src/GhoTransfert.sol";
 
 /**
  * @title DeployGho
@@ -77,6 +78,12 @@ contract DeployGho is Script {
         );
         console.log(
             "You can use this faucet to get GHO token for testing purpose"
+        );
+
+        GhoTransfert ghoTransfert = new GhoTransfert(address(ghoToken));
+        console.log(
+            "GhoTransfert deployed with address: ",
+            address(ghoTransfert)
         );
 
         vm.stopBroadcast();
